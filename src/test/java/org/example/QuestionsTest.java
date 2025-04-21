@@ -9,6 +9,7 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
 
@@ -17,8 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 
-public class QuestionsTest {
-    private WebDriver driver;
+public class QuestionsTest extends BaseTest {
     private By question;
     private By response;
     private String textResponse;
@@ -27,14 +27,6 @@ public class QuestionsTest {
         this.question = question;
         this.response = response;
         this.textResponse = textResponse;
-    }
-
-    @Before
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
     }
 
     @Parameterized.Parameters // добавили аннотацию
@@ -61,10 +53,5 @@ public class QuestionsTest {
 
         String actual = objQuestion.compareQuestions(response);
         assertEquals(textResponse, actual);
-    }
-
-    @After
-    public void tearDown() {
-        driver.quit();
     }
 }
